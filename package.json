@@ -1,5 +1,5 @@
 {
-  "name": "Ether",
+  "name": "ether",
   "type": "module",
   "scripts": {
     "dev": "vite",
