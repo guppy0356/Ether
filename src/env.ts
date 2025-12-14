@@ -5,10 +5,10 @@ import { z } from "zod";
 expand(config());
 
 const EnvSchema = z.object({
-  POSTGRES_USER: z.string(),
-  POSTGRES_PASSWORD: z.string(),
-  POSTGRES_DB: z.string(),
-  DATABASE_URL: z.string(),
+  POSTGRES_USER: z.string().min(1),
+  POSTGRES_PASSWORD: z.string().min(1),
+  POSTGRES_DB: z.string().min(1),
+  DATABASE_URL: z.string().min(1),
 });
 
 export type env = z.infer<typeof EnvSchema>;
