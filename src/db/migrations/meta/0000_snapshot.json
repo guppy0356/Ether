@@ -1,5 +1,5 @@
 {
-  "id": "adfb72d5-0334-4c63-827f-4385a8fe9745",
+  "id": "d8bba5ed-5e01-4e5a-a64e-49149aada0d5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -8,9 +8,9 @@
       "name": "users",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
+        "cuid": {
+          "name": "cuid",
+          "type": "text",
           "primaryKey": true,
           "notNull": true
         },
