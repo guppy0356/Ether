@@ -1,5 +1,5 @@
 {
-  "name": "ether",
+  "name": "Ether",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,18 +9,10 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
-    "@paralleldrive/cuid2": "^3.0.4",
-    "dotenv": "^17.2.3",
-    "dotenv-expand": "^12.0.3",
-    "drizzle-orm": "^0.45.1",
-    "hono": "^4.10.8",
-    "postgres": "^3.4.7"
+    "hono": "^4.10.8"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.2.3",
-    "@types/node": "^25.0.1",
-    "drizzle-kit": "^0.31.8",
-    "tsx": "^4.21.0",
     "vite": "^6.3.5",
     "vite-ssr-components": "^0.5.1",
     "wrangler": "^4.17.0"
