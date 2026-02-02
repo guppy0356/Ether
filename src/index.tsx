@@ -55,4 +55,35 @@ app.get('/file/*', async (c) => {
   return new Response(object.body)
 })
 
+/**
+ * Ref (ブランチのポインタ) を更新する
+ * git push の最後に呼ばれる
+ * PUT /refs/heads/main -> Body: "abc1234..."
+ */
+app.put('/refs/*', async (c) => {
+  // パスの先頭の "/" を取ってキーにする (例: "refs/heads/main")
+  const key = c.req.path.replace(/^\//, '')
+  const hash = await c.req.text()
+
+  console.log(`Updating ref: ${key} -> ${hash}`)
+  await c.env.packfiles.put(key, hash)
+
+  return c.text('OK')
+})
+
+/**
+ * Ref を取得する
+ * git pull (list) のときに呼ばれる
+ * GET /refs/heads/main -> Body: "abc1234..."
+ */
+app.get('/refs/*', async (c) => {
+  const key = c.req.path.replace(/^\//, '')
+  const obj = await c.env.packfiles.get(key)
+
+  if (!obj) {
+    return c.text('Not Found', 404)
+  }
+  return new Response(obj.body)
+})
+
 export default app
