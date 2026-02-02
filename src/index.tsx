@@ -86,4 +86,31 @@ app.get('/refs/*', async (c) => {
   return new Response(obj.body)
 })
 
+/**
+ * マニフェスト取得 (Clone/Pull 用)
+ * 現在の Refs 一覧と、存在する全 Packfile のリストを返す
+ */
+app.get('/manifest', async (c) => {
+  // 1. Refs (ブランチ) を列挙
+  const refsList = await c.env.packfiles.list({ prefix: 'refs/' })
+  const refs: Record<string, string> = {}
+
+  // 各Refの中身（ハッシュ）を読み出す
+  // ※ 本来は並列化すべきですが、PoCなので直列で書きます
+  for (const obj of refsList.objects) {
+    const file = await c.env.packfiles.get(obj.key)
+    if (file) {
+      const hash = await file.text()
+      // "refs/heads/main" のようなキーでハッシュを格納
+      refs[obj.key] = hash.trim()
+    }
+  }
+
+  // 2. Packfiles (データ) を列挙
+  const packsList = await c.env.packfiles.list({ prefix: 'objects/pack/' })
+  const packs = packsList.objects.map(o => o.key)
+
+  return c.json({ refs, packs })
+})
+
 export default app
